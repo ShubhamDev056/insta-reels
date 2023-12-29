@@ -25,16 +25,13 @@ app.post("/download_insta_reels", async (req, res, next) => {
   try {
     const data = req.body;
     console.log("post data", data);
-    const output = async () => {
-      let out = await instagramDl(data.url);
-      console.log("out!!!", out);
-      res.status(200).json({
-        status: true,
-        message: "ok",
-        data: out,
-      });
-    };
-    output();
+    let out = await instagramDl(data.url);
+    //console.log("out!!!", out);
+    res.status(200).json({
+      status: true,
+      message: "ok",
+      data: out,
+    })
   } catch (error) {
     console.log("error", error);
     res.status(400).json({
