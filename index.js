@@ -42,6 +42,19 @@ app.post("/download_insta_reels", async (req, res, next) => {
   }
 });
 
+app.get('/random',(req,res)=>{
+  let random = Math.random(1,10).toFixed(3)
+  console.log(random);
+
+  let obj = {};
+  obj[random] = new Date().toLocaleString();
+  obj.status = true;
+  obj.message = "ok";
+ 
+  console.log("resdata",obj);
+  res.json(obj)
+})
+
 app.listen(process.env.PORT || port, () => {
   console.log(`Server running on port ${process.env.PORT || port}`);
 });
