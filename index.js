@@ -12,6 +12,10 @@ const port = 3000;
 let app = express();
 // cors
 app.use(cors({ origin: true, credentials: true }));
+//setting view engine to ejs
+app.use(express.static(__dirname + "/public"));
+app.set("views", __dirname + "/views");
+app.set("view engine", "ejs");
 
 // Parse JSON and URL-encoded bodies
 app.use(bodyParser.json());
@@ -31,7 +35,7 @@ app.post("/download_insta_reels", async (req, res, next) => {
       status: true,
       message: "ok",
       data: out,
-    })
+    });
   } catch (error) {
     console.log("error", error);
     res.status(400).json({
@@ -42,18 +46,23 @@ app.post("/download_insta_reels", async (req, res, next) => {
   }
 });
 
-app.get('/random',(req,res)=>{
-  let random = Math.random(1,10).toFixed(3)
+app.get("/random", (req, res) => {
+  let random = Math.random(1, 10).toFixed(3);
   console.log(random);
 
   let obj = {};
   obj[random] = new Date().toLocaleString();
   obj.status = true;
   obj.message = "ok";
- 
-  console.log("resdata",obj);
-  res.json(obj)
-})
+
+  console.log("resdata", obj);
+  res.json(obj);
+});
+
+app.get("/privacy", (req, res) => {
+  res.render("privacy");
+  //res.send("privacy");
+});
 
 app.listen(process.env.PORT || port, () => {
   console.log(`Server running on port ${process.env.PORT || port}`);
